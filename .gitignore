@@ -1,25 +1,62 @@
-# --- JAVA / SPRING BOOT ---
+# ========================
+# JAVA / SPRING BOOT
+# ========================
 target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
 *.class
 .idea/
 *.iml
-.mvn/
-mvnw
-mvnw.cmd
 .settings/
 .classpath
 .project
 *.log
+**/*.log
+*.jar
+*.war
+*.ear
+*.nar
+dependency-reduced-pom.xml
+build-*.xml
 
-# --- UNITY 3D ---
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
-/[Mm]emoryCaptures/
+# ========================
+# ANGULAR / NODE.JS
+# ========================
+node_modules/
+dist/
+.angular/
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+typings/
+.vscode/  # VS Code settings (já estava no final, movido aqui)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.tsbuildinfo
+
+# ========================
+# UNITY 3D - COMPLETO ATUALIZADO
+# ========================
+# Pastas do Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Pp]ackages/
+[Pp]rojectSettings/PackageManagerSettings.json
+
+# Arquivos gerados pelo Unity
 *.pidb.meta
 *.pdb.meta
 *.unityproj
@@ -34,8 +71,142 @@ mvnw.cmd
 *.pdb
 *.opendb
 *.VC.db
+*.apk
+*.ipa
+*.app
+*.unitypackage
+*.bundle
+*.xcodeproj
+*.xcworkspace
+*.orig
+*.backup
 
-# --- OS JUNK ---
+# Arquivos binários grandes do Unity
+*.dll
+*.dylib
+*.so
+*.a
+*.lib
+*.exe
+*.dll.config
+*.dylib.config
+*.so.config
+
+# Cache de packages do Unity
+**/[Ll]ibrary/[Pp]ackage[Cc]ache/
+**/[Ll]ibrary/[Ss]criptAssemblies/
+**/[Ll]ibrary/[Aa]ssetDatabase/
+**/[Ll]ibrary/[Aa]rtifactDB
+
+# Arquivos específicos da Asset Store
+**/[Aa]ssets/[Aa]ssetStoreTools*
+**/[Aa]ssets/Plugins/Editor.meta
+
+# Mono desenvolvido dinamicamente
+[Mm]ono[Bb]leedingEdge/
+
+# --- UNITY IGNORA ESSES ARQUIVOS EM QUALQUER LUGAR ---
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Mm]emoryCaptures/
+
+# ========================
+# VS CODE / EDITORES
+# ========================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Visual Studio
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.sln.iml
+
+# ========================
+# SISTEMA OPERACIONAL
+# ========================
 Thumbs.db
+ehthumbs.db
 Desktop.ini
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+$RECYCLE.BIN/
+
+# ========================
+# BACKEND ESPECÍFICO
+# ========================
+# Arquivos de configuração local
+*.properties.local
+application-local.properties
+application-dev.properties
+
+# Banco de dados local
+*.db
+*.sqlite
+*.h2.db
+
+# Logs
+logs/
+*.log.*
+
+# ========================
+# FRONTEND ESPECÍFICO
+# ========================
+# Cache do Angular
+.cache/
+.ng/
+.aot/
+
+# Testes
+karma.conf.js
+protractor.conf.js
+
+# ========================
+# GIT
+# ========================
+# Arquivos de merge
+*.orig
+*.rej
+
+# ========================
+# DOCKER / DEPLOY
+# ========================
+.docker/
+docker-compose.override.yml
+*.dockerignore
+
+# ========================
+# ARQUIVOS TEMPORÁRIOS
+# ========================
+*.swp
+*.swo
+*~
+~*
+
+# ========================
+# DOCUMENTAÇÃO
+# ========================
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata

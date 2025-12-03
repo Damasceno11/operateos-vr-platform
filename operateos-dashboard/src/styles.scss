@@ -1,0 +1,277 @@
+/* ============================================================
+   ESTILO GLOBAL - OPERATE OS (ENTERPRISE DARK THEME)
+   ============================================================ */
+
+@use '@angular/material' as mat;
+
+/* ---------- 1. ATIVA O CORE DO MATERIAL ---------- */
+@include mat.core();
+
+/* ============================================================
+   2. DEFINIÇÃO DO TEMA M3 (APENAS PROPRIEDADES SUPORTADAS)
+   ============================================================ */
+
+$operate-os-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+
+      // 🎨 Somente propriedades válidas:
+      primary: mat.$azure-palette,
+      tertiary: mat.$rose-palette,
+
+      // ❗ secondary NÃO EXISTE na API M3
+      // ❗ warn NÃO EXISTE na API M3 (somente tokens internos)
+      // Opcional:
+      use-system-variables: true,
+      system-variables-prefix: operate,
+    ),
+
+    typography: (
+      brand-family: 'Roboto, sans-serif',
+      plain-family: 'Roboto, sans-serif',
+      bold-weight: 600,
+    ),
+
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+/* ---------- 3. APLICA TODOS OS COMPONENTES ---------- */
+@include mat.all-component-themes($operate-os-theme);
+
+/* ============================================================
+   4. VARIÁVEIS CSS GLOBAIS
+   ============================================================ */
+
+:root {
+  /* Cores principais */
+  --bg-dark: #121212;
+  --bg-card: #1e1e1e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0bec5;
+
+  /* Identidade visual */
+  --primary-color: #{mat.get-theme-color($operate-os-theme, primary)};
+  --accent-color: #e91e63;
+  --danger-color: #f44336;
+  --warn-color: #ffb74d;
+  --success-color: #69f0ae;
+}
+
+/* ============================================================
+   5. CSS GLOBAL (RESET & UTILITÁRIOS)
+   ============================================================ */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+/* Scrollbar Dark */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #616161;
+}
+
+/* ---------- Utilitários ---------- */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* ---------- Glass Cards ---------- */
+.glass-card {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  color: white;
+
+  /* Garante que seja mais específico que estilos do Material */
+  &.mat-mdc-card {
+    background-color: var(--bg-card);
+  }
+}
+
+/* ---------- Snackbars ---------- */
+.success-snackbar {
+  --mdc-snackbar-container-color: #1b5e20;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #a5d6a7;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #b71c1c;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #ffcdd2;
+}
+
+/* ---------- Cores utilitárias ---------- */
+.text-danger {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+.text-warn {
+  color: var(--warn-color);
+  font-weight: 600;
+}
+
+.text-success {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+/* ---------- Layout Utilities ---------- */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* ---------- Form Field Overrides ---------- */
+.mat-mdc-form-field {
+  .mdc-text-field--filled {
+    background-color: rgba(255, 255, 255, 0.05);
+
+    &:not(.mdc-text-field--disabled) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+/* ---------- Button Overrides ---------- */
+.mat-mdc-raised-button {
+  &.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  &.accent-button {
+    background-color: var(--accent-color);
+    color: white;
+  }
+}
+
+/* ---------- Table Overrides ---------- */
+.mat-mdc-table {
+  background-color: var(--bg-card);
+
+  .mat-mdc-header-row {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .mat-mdc-row {
+    &:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+/* ---------- Dialog Overrides ---------- */
+.mat-mdc-dialog-container {
+  .mdc-dialog__surface {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .layout-content {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none;
+  }
+}
+
+/* ---------- Utility Classes ---------- */
+.flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.align-center {
+  align-items: center;
+}
+.align-start {
+  align-items: flex-start;
+}
+.gap-1 {
+  gap: 0.5rem;
+}
+.gap-2 {
+  gap: 1rem;
+}
+.m-0 {
+  margin: 0;
+}
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.p-1 {
+  padding: 0.5rem;
+}
+.p-2 {
+  padding: 1rem;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.full-width {
+  width: 100%;
+}

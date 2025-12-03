@@ -1,0 +1,91 @@
+<div class="dashboard-container">
+  <!-- Barra Superior -->
+  <mat-toolbar color="primary" class="app-toolbar mat-elevation-z6">
+    <mat-icon class="logo-icon">view_in_ar</mat-icon>
+    <span class="brand">OPERATE<span class="brand-bold">OS</span></span>
+    <span class="spacer"></span>
+
+    <!-- Status Connection -->
+    @if (session()) {
+    <mat-chip-set>
+      <mat-chip [color]="session()?.active ? 'accent' : 'warn'" selected>
+        <mat-icon matChipAvatar>{{ session()?.active ? 'wifi' : 'wifi_off' }}</mat-icon>
+        {{ session()?.active ? 'SISTEMA ONLINE' : 'SESSÃO ENCERRADA' }}
+      </mat-chip>
+    </mat-chip-set>
+    } @else {
+    <mat-chip class="loading-chip">
+      <mat-icon matChipAvatar class="spin">sync</mat-icon>
+      BUSCANDO SINAL...
+    </mat-chip>
+    }
+  </mat-toolbar>
+
+  <!-- Grid Principal -->
+  @if (session(); as data) {
+  <div class="content-grid">
+    <!-- Coluna Esquerda: KPIs -->
+    <div class="metrics-column">
+      <!-- Operador -->
+      <mat-card class="glass-card">
+        <mat-card-header>
+          <div mat-card-avatar class="operator-avatar">
+            <mat-icon>person</mat-icon>
+          </div>
+          <mat-card-title>{{ data.operatorId }}</mat-card-title>
+          <mat-card-subtitle>ID: {{ data.id | slice : 0 : 8 }}...</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+
+      <!-- Score de Segurança -->
+      <mat-card class="glass-card score-card" [class.critical-pulse]="data.currentScore === 0">
+        <mat-card-content>
+          <div class="score-header">
+            <span>NÍVEL DE SEGURANÇA</span>
+            <mat-icon>shield</mat-icon>
+          </div>
+
+          <div class="score-display">
+            <h1 [class.text-danger]="data.currentScore < 50">
+              {{ data.currentScore | number : '1.1-1' }}
+            </h1>
+            <mat-progress-bar
+              class="large-progress"
+              mode="determinate"
+              [value]="data.currentScore"
+              [color]="getScoreColor(data.currentScore)"
+            >
+            </mat-progress-bar>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Coluna Direita: Logs -->
+    <div class="logs-column">
+      <mat-card class="glass-card terminal-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>terminal</mat-icon>
+          <mat-card-title>Terminal de Eventos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            @for (log of data.logs; track $index) {
+            <mat-list-item>
+              <mat-icon matListItemIcon [color]="log.includes('COLISÃO') ? 'warn' : 'primary'">
+                {{ getLogIcon(log) }}
+              </mat-icon>
+              <div matListItemTitle class="log-text">
+                <span class="log-time">[{{ $index }}]</span> {{ log }}
+              </div>
+            </mat-list-item>
+            } @if (data.logs.length === 0) {
+            <div class="empty-state">Aguardando telemetria...</div>
+            }
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  }
+</div>

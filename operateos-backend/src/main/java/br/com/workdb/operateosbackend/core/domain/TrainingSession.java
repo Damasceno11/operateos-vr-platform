@@ -20,6 +20,7 @@ public class TrainingSession {
     private String operatorId;
     private double currentScore;
     private boolean isActive;
+    private LocalDateTime createdAt;
 
     @ElementCollection
     private List<String> logs = new ArrayList<>();
@@ -34,7 +35,8 @@ public class TrainingSession {
         session.operatorId = operatorId;
         session.currentScore = 100.0;
         session.isActive = true;
-        session.addLog("Sessão iniciada em " + LocalDateTime.now());
+        session.createdAt = LocalDateTime.now();
+        session.addLog("Sessão iniciada em " + session.createdAt);
         return session;
     }
 
@@ -59,10 +61,11 @@ public class TrainingSession {
         this.logs.add(message);
     }
 
-    // Getters para leitura (Imutabilidade onde possível)
+    // Getters
     public String getId() { return id; }
     public String getOperatorId() { return operatorId; }
     public double getCurrentScore() { return currentScore; }
     public boolean isActive() { return isActive; }
+    public LocalDateTime getCreatedAt() {return createdAt;}
     public List<String> getLogs() { return Collections.unmodifiableList(logs); }
 }
