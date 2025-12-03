@@ -38,7 +38,7 @@ public class TelemetryController {
     public ResponseEntity<TrainingSession> getLatestSession() {
         List<TrainingSession> all = repository.findAll();
 
-        return repository.frindFirstByOrderByCreatedAtDesc()
+        return repository.findFirstByOrderByCreatedAtDesc()
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok(WAITING_SESSION));
     }

@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface TrainingRepository extends JpaRepository<TrainingSession, String> {
 
-    Optional<TrainingSession> frindFirstByOrderByCreatedAtDesc();
+    Optional<TrainingSession> findFirstByOrderByCreatedAtDesc();
 }

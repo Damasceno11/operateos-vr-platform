@@ -1,11 +1,9 @@
 <div class="dashboard-container">
-  <!-- Barra Superior -->
   <mat-toolbar color="primary" class="app-toolbar mat-elevation-z6">
     <mat-icon class="logo-icon">view_in_ar</mat-icon>
     <span class="brand">OPERATE<span class="brand-bold">OS</span></span>
     <span class="spacer"></span>
 
-    <!-- Status Connection -->
     @if (session()) {
     <mat-chip-set>
       <mat-chip [color]="session()?.active ? 'accent' : 'warn'" selected>
@@ -21,23 +19,25 @@
     }
   </mat-toolbar>
 
-  <!-- Grid Principal -->
   @if (session(); as data) {
   <div class="content-grid">
-    <!-- Coluna Esquerda: KPIs -->
     <div class="metrics-column">
-      <!-- Operador -->
       <mat-card class="glass-card">
         <mat-card-header>
           <div mat-card-avatar class="operator-avatar">
             <mat-icon>person</mat-icon>
           </div>
-          <mat-card-title>{{ data.operatorId }}</mat-card-title>
-          <mat-card-subtitle>ID: {{ data.id | slice : 0 : 8 }}...</mat-card-subtitle>
+
+          <mat-card-title>
+            {{ data.operatorId.includes('AGUARDANDO') ? 'AGUARDANDO CONEXÃO' : data.operatorId }}
+          </mat-card-title>
+
+          <mat-card-subtitle>
+            @if (data.operatorId.includes('AGUARDANDO')) { SISTEMA EM STANDBY } @else { ID:
+            {{ data.id | slice : 0 : 8 }}... }
+          </mat-card-subtitle>
         </mat-card-header>
       </mat-card>
-
-      <!-- Score de Segurança -->
       <mat-card class="glass-card score-card" [class.critical-pulse]="data.currentScore === 0">
         <mat-card-content>
           <div class="score-header">
@@ -61,7 +61,6 @@
       </mat-card>
     </div>
 
-    <!-- Coluna Direita: Logs -->
     <div class="logs-column">
       <mat-card class="glass-card terminal-card">
         <mat-card-header>
